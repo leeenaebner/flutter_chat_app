@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "648872628468",
+    "project_id": "flutter-chat-app-688e3",
+    "storage_bucket": "flutter-chat-app-688e3.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:648872628468:android:58bb74b1bf10377597cea1",
+        "android_client_info": {
+          "package_name": "com.lenaebner.chat_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "648872628468-cmrj6c5oel2esucbh726gbb7opcvfp0k.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCSqia-7T0dqvWC8Kqj7kTp_yowvcqUPrs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "648872628468-cmrj6c5oel2esucbh726gbb7opcvfp0k.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
