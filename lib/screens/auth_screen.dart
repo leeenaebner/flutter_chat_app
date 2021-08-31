@@ -1,8 +1,10 @@
-import 'package:chat_app/widgets/auth_form.dart';
+import 'package:chat_app/widgets/auth/auth_form.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'dart:io';
 
 class AuthScreen extends StatefulWidget {
   static const routeName = "/auth";
@@ -13,8 +15,9 @@ class AuthScreen extends StatefulWidget {
 class _AuthScreenState extends State<AuthScreen> {
   final authRef = FirebaseAuth.instance;
   var _isLoading = false;
+  final storageRef = FirebaseStorage.instance.ref();
 
-  void _submitAuthForm(String email, String username, String pw,
+  void _submitAuthForm(String email, String username, String pw, File image,
       AuthMode authMode, BuildContext ctx) async {
     AuthResult authResult;
 
@@ -32,17 +35,23 @@ class _AuthScreenState extends State<AuthScreen> {
           email: email,
           password: pw,
         );
+
+        final uploadRef =
+            storageRef.child("user_images").child(authResult.user.uid + ".jpg");
+
+        await uploadRef.putFile(image).onComplete;
+
+        final imageUrl = await uploadRef.getDownloadURL();
+
         await Firestore.instance
             .collection("users")
             .document(authResult.user.uid)
             .setData({
           'username': username,
           'email': email,
+          'imageUrl': imageUrl,
         });
       }
-      setState(() {
-        _isLoading = false;
-      });
     } on PlatformException catch (error) {
       var message = 'An error occured, please check your credentials';
       if (error.message != null) {

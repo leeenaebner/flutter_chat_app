@@ -1,4 +1,6 @@
+import 'package:chat_app/widgets/pickers/user_image_picker.dart';
 import 'package:flutter/material.dart';
+import 'dart:io';
 
 enum AuthMode { Login, Signup }
 
@@ -7,6 +9,7 @@ class AuthForm extends StatefulWidget {
     String email,
     String username,
     String pw,
+    File image,
     AuthMode authMode,
     BuildContext context,
   ) _submitForm;
@@ -24,6 +27,7 @@ class _AuthFormState extends State<AuthForm> {
   var _userEmail = '';
   var _userName = '';
   var _userPW = '';
+  File? _userImage;
   var _authMode = AuthMode.Login;
 
   @override
@@ -32,10 +36,21 @@ class _AuthFormState extends State<AuthForm> {
       final isValid = _formKey.currentState!.validate();
       FocusScope.of(context).unfocus();
 
+      if (_authMode == AuthMode.Signup && _userImage == null) {
+        ScaffoldMessenger.of(context)
+            .showSnackBar(SnackBar(content: Text("No image picked")));
+        return;
+      }
+
       if (isValid) {
         _formKey.currentState!.save();
       }
-      widget._submitForm(_userEmail, _userName, _userPW, _authMode, context);
+      widget._submitForm(
+          _userEmail, _userName, _userPW, _userImage!, _authMode, context);
+    }
+
+    void _pickImage(File pickedImage) {
+      _userImage = pickedImage;
     }
 
     return Center(
@@ -49,6 +64,7 @@ class _AuthFormState extends State<AuthForm> {
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
+                  if (_authMode == AuthMode.Signup) UserImagePicker(_pickImage),
                   TextFormField(
                     key: ValueKey("email"),
                     decoration: InputDecoration(labelText: "Email address"),
