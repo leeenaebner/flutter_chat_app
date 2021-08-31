@@ -14,7 +14,7 @@ class _NewMessageState extends State<NewMessage> {
   final _msgController = TextEditingController();
 
   void _sendMessage() async {
-    final user = await FirebaseAuth.instance.currentUser();
+    final user = FirebaseAuth.instance.currentUser;
     final userData =
         await Firestore.instance.collection("users").document(user.uid).get();
 

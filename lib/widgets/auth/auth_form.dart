@@ -9,7 +9,7 @@ class AuthForm extends StatefulWidget {
     String email,
     String username,
     String pw,
-    File image,
+    File? image,
     AuthMode authMode,
     BuildContext context,
   ) _submitForm;
@@ -46,7 +46,7 @@ class _AuthFormState extends State<AuthForm> {
         _formKey.currentState!.save();
       }
       widget._submitForm(
-          _userEmail, _userName, _userPW, _userImage!, _authMode, context);
+          _userEmail, _userName, _userPW, _userImage, _authMode, context);
     }
 
     void _pickImage(File pickedImage) {

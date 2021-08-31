@@ -17,9 +17,9 @@ class _AuthScreenState extends State<AuthScreen> {
   var _isLoading = false;
   final storageRef = FirebaseStorage.instance.ref();
 
-  void _submitAuthForm(String email, String username, String pw, File image,
+  void _submitAuthForm(String email, String username, String pw, File? image,
       AuthMode authMode, BuildContext ctx) async {
-    AuthResult authResult;
+    UserCredential authResult;
 
     try {
       setState(() {
@@ -39,14 +39,14 @@ class _AuthScreenState extends State<AuthScreen> {
         final uploadRef =
             storageRef.child("user_images").child(authResult.user.uid + ".jpg");
 
-        await uploadRef.putFile(image).onComplete;
+        await uploadRef.putFile(image);
 
         final imageUrl = await uploadRef.getDownloadURL();
 
-        await Firestore.instance
+        await FirebaseFirestore.instance
             .collection("users")
-            .document(authResult.user.uid)
-            .setData({
+            .doc(authResult.user.uid)
+            .set({
           'username': username,
           'email': email,
           'imageUrl': imageUrl,
