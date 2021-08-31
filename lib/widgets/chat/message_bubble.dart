@@ -14,8 +14,6 @@ class MessageBubble extends StatelessWidget {
     final usersRef = Firestore.instance.collection("users");
 
     return Row(
-      crossAxisAlignment:
-          isMe ? CrossAxisAlignment.start : CrossAxisAlignment.start,
       mainAxisAlignment: isMe ? MainAxisAlignment.start : MainAxisAlignment.end,
       children: [
         Container(
@@ -32,6 +30,8 @@ class MessageBubble extends StatelessWidget {
           padding: EdgeInsets.symmetric(horizontal: 16, vertical: 10),
           margin: EdgeInsets.symmetric(horizontal: 5, vertical: 4),
           child: Column(
+            crossAxisAlignment:
+                isMe ? CrossAxisAlignment.start : CrossAxisAlignment.end,
             children: [
               Text(
                 username,
@@ -46,6 +46,7 @@ class MessageBubble extends StatelessWidget {
                 style: TextStyle(
                   color: isMe ? Colors.black87 : Colors.white,
                 ),
+                textAlign: isMe ? TextAlign.start : TextAlign.end,
               ),
             ],
           ),
