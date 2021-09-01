@@ -15,6 +15,23 @@ class _ChatScreenState extends State<ChatScreen> {
   @override
   void initState() {
     super.initState();
+
+    final fb = FirebaseMessaging();
+    fb.requestNotificationPermissions();
+    // fb.configure(onMessage: (msg) {
+    //   print(msg);
+    //   return;
+    // }, onLaunch: (msg) {
+    //   print(msg);
+    //   return;
+    // }, onResume: (msg) {
+    //   print(msg);
+    //   return;
+    // }, onBackgroundMessage: (msg) {
+    //   print(msg);
+    //   return;
+    // });
+
     // final fbm = FirebaseMessaging().instance;
     // fbm.requestPermission();
     // FirebaseMessaging.onMessage.listen((message) {
@@ -35,6 +52,7 @@ class _ChatScreenState extends State<ChatScreen> {
         title: Text("Chat"),
         actions: [
           DropdownButton(
+            underline: Container(),
             icon: Icon(Icons.more_vert),
             items: [
               DropdownMenuItem(

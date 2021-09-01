@@ -66,6 +66,8 @@ class _AuthFormState extends State<AuthForm> {
                 children: [
                   if (_authMode == AuthMode.Signup) UserImagePicker(_pickImage),
                   TextFormField(
+                    textCapitalization: TextCapitalization.none,
+                    enableSuggestions: false,
                     key: ValueKey("email"),
                     decoration: InputDecoration(labelText: "Email address"),
                     keyboardType: TextInputType.emailAddress,
@@ -82,6 +84,7 @@ class _AuthFormState extends State<AuthForm> {
                   if (_authMode != AuthMode.Login)
                     TextFormField(
                       key: ValueKey("username"),
+                      enableSuggestions: false,
                       decoration: InputDecoration(labelText: "Username"),
                       keyboardType: TextInputType.text,
                       validator: (val) {
